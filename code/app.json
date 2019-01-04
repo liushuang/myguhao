@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/account_summary/account_summary",
+    "pages/about_us/about_us"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "myguhao",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/index_icon.png",
+        "iconPath": "images/index_icon.png",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "images/index_icon.png",
+        "iconPath": "images/index_icon.png",
+        "pagePath": "pages/account_summary/account_summary",
+        "text": "详情"
+      },
+      {
+        "selectedIconPath": "images/index_icon.png",
+        "iconPath": "images/index_icon.png",
+        "pagePath": "pages/about_us/about_us",
+        "text": "关于我们"
+      }
+    ]
+  }
+}
