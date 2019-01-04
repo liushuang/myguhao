@@ -10,10 +10,11 @@ https://developers.weixin.qq.com/miniprogram/dev/
 ### 输入藏宝阁连接，给出报价
 详见axure
 ### 后期引入机器学习，装备宝宝价格更准
-
+LATER
 ### 成系统之后，可以考虑收费估号
-
+LATER
 ### 可以加一点广告
+LATER
 
 ## 技术实现
 ### 需要一台服务器
