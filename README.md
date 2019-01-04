@@ -1,10 +1,12 @@
 # 梦幻西游估号工具
 一个微信小程序
 
-小程序管理首页：
+* 小程序管理首页：
 https://mp.weixin.qq.com/wxopen/initprofile?action=home&lang=zh_CN&token=526851044
-小程序开发文档：
+* 小程序开发文档：
 https://developers.weixin.qq.com/miniprogram/dev/
+* 阿里通信图标：
+https://www.iconfont.cn/collections/detail?cid=29
 
 ## 功能
 ### 输入藏宝阁连接，给出报价
