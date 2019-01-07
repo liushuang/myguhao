@@ -27,4 +27,14 @@ public class Lpc2JsUtil {
         }
         return JSONObject.parseObject(str);
     }
+
+    public static String convert(String str){
+        String result = str;
+        if(StringUtils.isNotEmpty(str)){
+            for(Entry<String,String> entry : convertDict.entrySet()){
+                result = result.replaceAll(entry.getKey(), entry.getValue());
+            }
+        }
+        return result;
+    }
 }

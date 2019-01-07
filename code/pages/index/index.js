@@ -10,6 +10,16 @@ Page({
     
   },
   startGujia:function(e){
-    console.log(e.detail.value.cbgUrl);
+    let cbGurl = e.detail.value.cbgUrl;
+    wx.request({
+      url:"http://localhost:8080/calc",
+      header:{
+        'content-type': 'application/json' // 默认值
+      },
+      success(res){
+        console.log(res);
+      }
+    })
+    console.log();
   }
 })
