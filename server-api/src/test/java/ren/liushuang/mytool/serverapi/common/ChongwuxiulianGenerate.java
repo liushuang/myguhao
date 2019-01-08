@@ -39,19 +39,19 @@ public class ChongwuxiulianGenerate {
             int coinTotal = 0;
             int jifen;
             int jifenTotal = 0;
-            int extraCoin;
+            int extraCoin =0;
             int level;
             while ((tempString = reader.readLine()) != null) {
                 Iterator<String> iterator = Splitter.on("\t").split(tempString).iterator();
                 level = Integer.valueOf(iterator.next());
                 jifen = Integer.valueOf(iterator.next());
-                extraCoin = Integer.valueOf(iterator.next());
+                extraCoin += Integer.valueOf(iterator.next());
                 coinTotal = coinTotal + jifen * JIFEN_COIN_EXCHANGE + extraCoin;
                 jifenTotal += jifen;
                 ChongwuxiulianEntity chongwuxiulianEntity = ChongwuxiulianEntity.builder()
                                                                                 .jifen(jifen)
                                                                                 .jifenTotal(jifenTotal)
-                                                                                .extraCoin(extraCoin)
+                                                                                .extraCoinTotal(extraCoin)
                                                                                 .coinTotal(coinTotal)
                                                                                 .level(level)
                                                                                 .build();

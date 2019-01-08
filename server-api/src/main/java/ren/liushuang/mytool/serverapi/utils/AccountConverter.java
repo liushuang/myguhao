@@ -42,10 +42,10 @@ public class AccountConverter {
     }
 
     private static void parseAllSkills(Account account, JSONObject jsonObject) {
-        Map<String, Integer> allSkills = Maps.newHashMap();
+        Map<Integer, Integer> allSkills = Maps.newHashMap();
         JSONObject allSkillsJson = jsonObject.getJSONObject("all_skills");
         for (Entry<String, Object> entry : allSkillsJson.entrySet()) {
-            allSkills.put(entry.getKey(), Integer.valueOf(entry.getValue().toString()));
+            allSkills.put(Integer.valueOf(entry.getKey()), Integer.valueOf(entry.getValue().toString()));
         }
         account.setAllSkills(allSkills);
     }

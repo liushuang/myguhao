@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ChongwuxiulianEntity {
     private int level;
-    private int jifen;
-    private int jifenTotal;
-    private int extraCoin;
-    private int coinTotal;
+    private long jifen;
+    private long jifenTotal;
+    private long extraCoinTotal;
+    private long coinTotal;
 }

@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ShimenjinengEntity {
+public class BangpaijinengEntity {
     private int level;
-    private long coin;
-    private long coinTotal;
     private long exp;
     private long expTotal;
+    private long coin;
+    private long coinTotal;
+    private int banggongTotal;
+    private JinengType type;
 }

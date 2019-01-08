@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RenwuxiulianEntity {
     private int level;
-    private int xiulianExp;
+    private long xiulianExp;
     private XiulianType type;
-    private int coin;
-    private int coinTotal;
+    private long coin;
+    private long coinTotal;
 }

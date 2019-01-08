@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class DiscountConfig {
-    private double totalDiscount = 0.8;
+    private double totalDiscount = 1;
     private double coinMoneyRate = 30000000/300;
 }

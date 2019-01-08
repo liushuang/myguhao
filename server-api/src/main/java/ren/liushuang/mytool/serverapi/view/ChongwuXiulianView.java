@@ -3,7 +3,7 @@ package ren.liushuang.mytool.serverapi.view;
 import lombok.Data;
 
 @Data
-public class RenwuXiulianView {
+public class ChongwuXiulianView {
     private long coin;
     private long money;
 }

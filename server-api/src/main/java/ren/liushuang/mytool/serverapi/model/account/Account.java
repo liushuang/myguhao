@@ -15,7 +15,7 @@ public class Account {
      *      * 230强壮
      *      * 237神速
      */
-    private Map<String,Integer> allSkills;
+    private Map<Integer,Integer> allSkills;
 
     private RenwuXiulian renwuXiulian;
     private ChongwuXiulian chongwuXiulian;

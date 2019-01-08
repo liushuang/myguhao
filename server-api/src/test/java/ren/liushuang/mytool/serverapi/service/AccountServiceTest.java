@@ -24,4 +24,13 @@ public class AccountServiceTest {
         Assert.assertNotNull(accountView.getRenwuXiulianView());
 
     }
+
+    @Test
+    public void testCalcAccount2(){
+        AccountView accountView = accountService.calcAccount(
+                "https://xyq.cbg.163.com/equip?s=229&eid=201901052200113-229-PULBF5C1YJN8&view_loc=equip_list");
+        Assert.assertNotNull(accountView);
+        Assert.assertNotNull(accountView.getRenwuXiulianView());
+
+    }
 }
