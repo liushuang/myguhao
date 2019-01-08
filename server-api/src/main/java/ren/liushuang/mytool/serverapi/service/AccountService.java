@@ -2,16 +2,21 @@ package ren.liushuang.mytool.serverapi.service;
 
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
 
+import ren.liushuang.mytool.serverapi.entity.BangpaijinengEntity;
 import ren.liushuang.mytool.serverapi.entity.ChongwuxiulianEntity;
+import ren.liushuang.mytool.serverapi.entity.JinengType;
 import ren.liushuang.mytool.serverapi.entity.RenwuxiulianEntity;
 import ren.liushuang.mytool.serverapi.entity.ShimenjinengEntity;
 import ren.liushuang.mytool.serverapi.entity.XiulianType;
+import ren.liushuang.mytool.serverapi.mapper.BangpaiJinengRepository;
 import ren.liushuang.mytool.serverapi.mapper.ChongwuXiulianRepository;
 import ren.liushuang.mytool.serverapi.mapper.RenwuXiulianRepository;
 import ren.liushuang.mytool.serverapi.mapper.ShimenJinengRepository;
@@ -21,6 +26,7 @@ import ren.liushuang.mytool.serverapi.utils.NeteasyUtil;
 import ren.liushuang.mytool.serverapi.view.AccountView;
 import ren.liushuang.mytool.serverapi.view.ChongwuXiulianView;
 import ren.liushuang.mytool.serverapi.view.DiscountConfig;
+import ren.liushuang.mytool.serverapi.view.FuzhuJinengView;
 import ren.liushuang.mytool.serverapi.view.RenwuXiulianView;
 import ren.liushuang.mytool.serverapi.view.ShimenJinengView;
 
@@ -36,22 +42,58 @@ public class AccountService {
     @Autowired
     private ShimenJinengRepository shimenJinengRepository;
 
+    @Autowired
+    private BangpaiJinengRepository bangpaiJinengRepository;
+
+
     public AccountView calcAccount(String url){
         AccountView accountView = new AccountView();
         initConfig(accountView);
 
         String accountDataStr= NeteasyUtil.getByUrl(url);
-        System.out.println(accountDataStr);
         Account account = AccountConverter.parseFromJson(accountDataStr);
 
         long renwuXiulianCoin = calcRenwuXiulian(account);
         long chongwuXiulianCoin = calcChongwuXiulian(account);
         long shimenjinengCoin = calcShimenJineng(account);
+        long fuzhujinengCoin = calcFuzhujineng(account, accountView);
+
         buildRenwuXiulianView(accountView,renwuXiulianCoin);
         buildChongwuXiulianView(accountView, chongwuXiulianCoin);
         buildShimenjinengView(accountView, shimenjinengCoin);
-        System.out.println(account);
+        buildFuzhujinengView(accountView, fuzhujinengCoin);
         return accountView;
+    }
+
+    private void buildFuzhujinengView(AccountView accountView, long fuzhujinengCoin) {
+        FuzhuJinengView fuzhuJinengView = new FuzhuJinengView();
+
+        fuzhuJinengView.setCoin(fuzhujinengCoin);
+        fuzhuJinengView.setMoney((long) (fuzhujinengCoin / accountView.getDiscountConfig().getCoinMoneyRate() * accountView
+                .getDiscountConfig().getTotalDiscount()));
+        accountView.setFuzhuJinengView(fuzhuJinengView);
+    }
+
+    private long calcFuzhujineng(Account account, AccountView accountView) {
+        long totalCoin = 0;
+        Set<Integer> fuzhujinengId = bangpaiJinengRepository.getBangpaiJinengIdSet();
+        for (Entry<Integer, Integer> entry : account.getAllSkills().entrySet()) {
+            // 只处理辅助技能
+            if (fuzhujinengId.contains(entry.getKey())) {
+                JinengType type = JinengType.NORMAL;
+                if (Objects.equals(entry.getKey(), 230) || Objects.equals(entry.getKey(), 237)) {
+                    type = JinengType.QIANGZHUANG;
+                }
+                BangpaijinengEntity bangpaiJineng = bangpaiJinengRepository.getBangpaiJineng(entry.getValue(),
+                                                                                             type);
+
+                totalCoin += bangpaiJineng.getCoinTotal() +
+                             // 计算帮贡成本
+                             bangpaiJineng.getBanggongTotal() * accountView.getDiscountConfig()
+                                                                           .getBanggongToCoinRate();
+            }
+        }
+        return totalCoin;
     }
 
     private void buildShimenjinengView(AccountView accountView, long shimenjinengCoin) {

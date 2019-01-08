@@ -90,7 +90,7 @@ public class BangpaijinengGenerate {
             int level;
             while ((tempString = reader.readLine()) != null) {
                 Iterator<String> iterator = Splitter.on("\t").split(tempString).iterator();
-                level = Integer.valueOf(iterator.next());
+                level = Integer.valueOf(iterator.next()) +1;
                 exp = Integer.valueOf(iterator.next());
                 coin = Integer.valueOf(iterator.next());
                 coinTotal += coin;
