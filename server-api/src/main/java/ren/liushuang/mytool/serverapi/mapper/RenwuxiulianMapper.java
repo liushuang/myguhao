@@ -15,6 +15,6 @@ public interface RenwuxiulianMapper {
     @Insert("insert into renwuxiulian(level, xiulian_exp, type, coin, coin_total) values(#{level}, #{xiulianExp}, #{type}, #{coin}, #{coinTotal})")
     int insert(RenwuxiulianEntity renwuxiulianEntity);
 
-    @Select("select level, xiulian_exp, type, coin, coin_total from renwuxiulian")
+    @Select("select level, xiulian_exp as xiulianExp, type, coin, coin_total as coinTotal from renwuxiulian")
     List<RenwuxiulianEntity> listAll();
 }

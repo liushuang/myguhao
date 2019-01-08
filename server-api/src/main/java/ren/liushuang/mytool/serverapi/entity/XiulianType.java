@@ -1,5 +1,5 @@
 package ren.liushuang.mytool.serverapi.entity;
 
 public enum XiulianType {
-    GONGJI,FANGYU
+    GONGJI,FANGYU, GONGJI_MAX, FANGYU_MAX
 }

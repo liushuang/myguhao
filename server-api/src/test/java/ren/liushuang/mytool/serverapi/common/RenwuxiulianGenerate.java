@@ -82,4 +82,56 @@ public class RenwuxiulianGenerate {
             }
         }
     }
+
+
+    @Test
+    public void generateMax() {
+        File file = new File(getClass().getResource("/renwuxiulian_max.resource").getFile());
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            String tempString = null;
+            int level;
+            int gongjiCoin;
+            int fangyuCoin;
+            List<RenwuxiulianEntity> gongjiList = Lists.newArrayList();
+            List<RenwuxiulianEntity> fangyuList = Lists.newArrayList();
+            while ((tempString = reader.readLine()) != null) {
+                Iterator<String> iterator = Splitter.on("\t").split(tempString).iterator();
+                level = Integer.valueOf(iterator.next());
+                iterator.next();
+                gongjiCoin = Integer.valueOf(iterator.next());
+                fangyuCoin = Integer.valueOf(iterator.next());
+                RenwuxiulianEntity renwuxiulianFangyu = RenwuxiulianEntity.builder()
+                                                                          .level(level)
+                                                                          .xiulianExp(0)
+                                                                          .coin(fangyuCoin)
+                                                                          .coinTotal(fangyuCoin)
+                                                                          .type(XiulianType.FANGYU_MAX)
+                                                                          .build();
+
+                fangyuList.add(renwuxiulianFangyu);
+                RenwuxiulianEntity renwuxiulianGongji = RenwuxiulianEntity.builder()
+                                                                          .level(level)
+                                                                          .xiulianExp(0)
+                                                                          .coin(gongjiCoin)
+                                                                          .coinTotal(gongjiCoin)
+                                                                          .type(XiulianType.GONGJI_MAX)
+                                                                          .build();
+                gongjiList.add(renwuxiulianGongji);
+            }
+            reader.close();
+            gongjiList.forEach(g -> renwuxiulianMapper.insert(g));
+            fangyuList.forEach(f -> renwuxiulianMapper.insert(f));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e1) {
+                }
+            }
+        }
+    }
 }
