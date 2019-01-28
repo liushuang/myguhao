@@ -4,12 +4,17 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
 
+import lombok.extern.slf4j.Slf4j;
 import ren.liushuang.mytool.serverapi.entity.BangpaijinengEntity;
 import ren.liushuang.mytool.serverapi.entity.ChongwuxiulianEntity;
 import ren.liushuang.mytool.serverapi.entity.JinengType;
@@ -31,6 +36,7 @@ import ren.liushuang.mytool.serverapi.view.RenwuXiulianView;
 import ren.liushuang.mytool.serverapi.view.ShimenJinengView;
 
 @Service
+@Slf4j
 public class AccountService {
 
     @Autowired
@@ -45,12 +51,30 @@ public class AccountService {
     @Autowired
     private BangpaiJinengRepository bangpaiJinengRepository;
 
+    private LoadingCache<String, AccountView> accountViewCache =
+            CacheBuilder.newBuilder()
+                        .expireAfterWrite(10, TimeUnit.MINUTES)
+                        .build(new CacheLoader<String, AccountView>() {
+                            @Override
+                            public AccountView load(String key) throws Exception {
+                                return calcAccountDirectly(key);
+                            }
+                        });
 
-    public AccountView calcAccount(String url){
+    public AccountView calcAccount(String url) {
+        try {
+            return accountViewCache.get(url);
+        } catch (Exception e) {
+            log.error("calcAccount error", e);
+        }
+        return null;
+    }
+
+    private AccountView calcAccountDirectly(String url){
         AccountView accountView = new AccountView();
         initConfig(accountView);
 
-        String accountDataStr= NeteasyUtil.getByUrl(url);
+        String accountDataStr = NeteasyUtil.getByUrl(url);
         Account account = AccountConverter.parseFromJson(accountDataStr);
 
         long renwuXiulianCoin = calcRenwuXiulian(account);
@@ -58,19 +82,17 @@ public class AccountService {
         long shimenjinengCoin = calcShimenJineng(account);
         long fuzhujinengCoin = calcFuzhujineng(account, accountView);
 
-        buildRenwuXiulianView(accountView,renwuXiulianCoin);
+        buildRenwuXiulianView(accountView, renwuXiulianCoin);
         buildChongwuXiulianView(accountView, chongwuXiulianCoin);
         buildShimenjinengView(accountView, shimenjinengCoin);
         buildFuzhujinengView(accountView, fuzhujinengCoin);
         return accountView;
     }
-
     private void buildFuzhujinengView(AccountView accountView, long fuzhujinengCoin) {
         FuzhuJinengView fuzhuJinengView = new FuzhuJinengView();
 
         fuzhuJinengView.setCoin(fuzhujinengCoin);
-        fuzhuJinengView.setMoney((long) (fuzhujinengCoin / accountView.getDiscountConfig().getCoinMoneyRate() * accountView
-                .getDiscountConfig().getTotalDiscount()));
+        fuzhuJinengView.setMoney((long) (fuzhujinengCoin / accountView.getDiscountConfig().getCoinMoneyRate()));
         accountView.setFuzhuJinengView(fuzhuJinengView);
     }
 
@@ -99,8 +121,7 @@ public class AccountService {
     private void buildShimenjinengView(AccountView accountView, long shimenjinengCoin) {
         ShimenJinengView shimenJinengView = new ShimenJinengView();
         shimenJinengView.setCoin(shimenjinengCoin);
-        shimenJinengView.setMoney((long) (shimenjinengCoin / accountView.getDiscountConfig().getCoinMoneyRate() * accountView
-                .getDiscountConfig().getTotalDiscount()));
+        shimenJinengView.setMoney((long) (shimenjinengCoin / accountView.getDiscountConfig().getCoinMoneyRate()));
         accountView.setShimenJinengView(shimenJinengView);
     }
 
@@ -120,9 +141,8 @@ public class AccountService {
     private void buildChongwuXiulianView(AccountView accountView, long chongwuXiulianCoin) {
         ChongwuXiulianView chongwuXiulianView = new ChongwuXiulianView();
         chongwuXiulianView.setCoin(chongwuXiulianCoin);
-        chongwuXiulianView.setMoney((long) (chongwuXiulianCoin / accountView.getDiscountConfig().getCoinMoneyRate() * accountView
-                .getDiscountConfig().getTotalDiscount()));
-        accountView.setChongwuXIulianView(chongwuXiulianView);
+        chongwuXiulianView.setMoney((long) (chongwuXiulianCoin / accountView.getDiscountConfig().getCoinMoneyRate()));
+        accountView.setChongwuXiulianView(chongwuXiulianView);
     }
 
     private long calcChongwuXiulian(Account account) {
@@ -149,8 +169,7 @@ public class AccountService {
         RenwuXiulianView renwuXiulianView = new RenwuXiulianView();
         renwuXiulianView.setCoin(renwuXiulianCoin);
         renwuXiulianView.setMoney(
-                (long) (renwuXiulianCoin / accountView.getDiscountConfig().getCoinMoneyRate() * accountView
-                        .getDiscountConfig().getTotalDiscount()));
+                (long) (renwuXiulianCoin / accountView.getDiscountConfig().getCoinMoneyRate()));
         accountView.setRenwuXiulianView(renwuXiulianView);
     }
 

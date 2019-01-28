@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AccountView {
     private RenwuXiulianView renwuXiulianView;
-    private ChongwuXiulianView chongwuXIulianView;
+    private ChongwuXiulianView chongwuXiulianView;
     private ShimenJinengView shimenJinengView;
     private FuzhuJinengView fuzhuJinengView;
     private DiscountConfig discountConfig;

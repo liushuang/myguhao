@@ -22,7 +22,7 @@ public class AccountServiceTest {
                 "https://xyq.cbg.163.com/equip?s=132&eid=201901061700113-132-FQM5T7WIZMM8&o&equip_refer=1");
         Assert.assertNotNull(accountView);
         Assert.assertNotNull(accountView.getRenwuXiulianView());
-        Assert.assertNotNull(accountView.getChongwuXIulianView());
+        Assert.assertNotNull(accountView.getChongwuXiulianView());
         Assert.assertNotNull(accountView.getShimenJinengView());
         Assert.assertNotNull(accountView.getFuzhuJinengView());
 

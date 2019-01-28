@@ -1,2 +1,42 @@
 <!--pages/account_summary/account_summary.wxml-->
-<text>pages/account_summary/account_summary.wxml</text>
+<view class='recommend'>
+推荐等级
+</view>
+<view class='detail'>
+  <view class=''>概览</view>
+  <view class='flex-parent'>
+    <view class='flex-row'>
+      <text class='flex-column cell'>名称</text>
+      <text class='flex-column cell'>成本</text>
+      <text class='flex-column cell'>折后</text>
+      <text class='flex-column cell'>打折</text>
+    </view>
+    <view class='flex-row'>
+      <text class='flex-column cell'>师门技能</text>
+      <text class='flex-column cell'>{{ accountView.shimenJinengView.money }}</text>
+      <text class='flex-column cell'>{{ accountView.shimenJinengView.money * accountView.shimenJinengView.discount / 100 }}</text>
+      <text class='flex-column cell'>{{ accountView.shimenJinengView.discount }}%</text>
+    </view>
+    <view class='flex-row'>
+      <text class='flex-column cell'>人物修炼</text>
+      <text class='flex-column cell'>{{ accountView.renwuXiulianView.money }}</text>
+      <text class='flex-column cell'>{{ accountView.renwuXiulianView.money * accountView.renwuXiulianView.discount /100 }}</text>
+      <text class='flex-column cell'>{{ accountView.renwuXiulianView.discount }}%</text>
+    </view>
+    <view class='flex-row'>
+      <text class='flex-column cell'>宝宝修炼</text>
+      <text class='flex-column cell'>{{ accountView.chongwuXiulianView.money }}</text>
+      <text class='flex-column cell'>{{ accountView.chongwuXiulianView.money * accountView.chongwuXiulianView.discount /100 }}</text>
+      <text class='flex-column cell'>{{ accountView.chongwuXiulianView.discount }}%</text>
+    </view>
+    <view class='flex-row'>
+      <text class='flex-column cell'>辅助修炼</text>
+      <text class='flex-column cell'>{{ accountView.fuzhuJinengView.money }}</text>
+      <text class='flex-column cell'>{{ accountView.fuzhuJinengView.money * accountView.fuzhuJinengView.discount }}</text>
+      <text class='flex-column cell'>{{ accountView.fuzhuJinengView.discount }}%</text>
+    </view>
+  </view>
+  <view>
+    评估总价：
+  </view>
+</view>

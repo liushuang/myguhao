@@ -6,4 +6,5 @@ import lombok.Data;
 public class RenwuXiulianView {
     private long coin;
     private long money;
+    private int discount = 80;
 }

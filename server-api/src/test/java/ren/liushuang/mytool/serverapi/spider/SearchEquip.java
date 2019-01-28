@@ -24,9 +24,9 @@ public class SearchEquip {
     @Test
     public void searchEquip() throws Exception {
         int finish = 0;
-        int totalPage = 5;
+        int totalPage = 500;
         String baseUrl =
-                "https://recommd.xyq.cbg.163.com/cgi-bin/recommend.py?callback=Request.JSONP.request_map.request_4&act=recommd_by_role&level_min=60&level_max=160&kindid=21&server_type=3&sum_attr_without_melt=1&count=15&search_type=overall_search_equip&view_loc=overall_search";
+                "https://recommd.xyq.cbg.163.com/cgi-bin/recommend.py?callback=Request.JSONP.request_map.request_1&act=recommd_by_role&order_by=price%20ASC&level_min=60&level_max=160&kindid=21&special_skill=1036&server_type=3&sum_attr_without_melt=1&count=15&search_type=overall_search_equip&view_loc=overall_search";
         for (int i = 1; i <= totalPage; i++) {
             String url = baseUrl + "&page=" + i;
             url += "&_=" + System.currentTimeMillis();

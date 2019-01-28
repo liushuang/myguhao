@@ -8,5 +8,6 @@ import lombok.Data;
 public class FuzhuJinengView {
     private long coin;
     private long money;
+    private int discount = 80;
     private List<FuzhuJinengDetail> detailList;
 }

@@ -1,6 +1,6 @@
 /**index.wxss**/
 .cbgUrl {
-  
+
 }
 .cbgUrlView{
   margin:40rpx;

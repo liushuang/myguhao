@@ -1,11 +1,10 @@
 <!--index.wxml-->
 <view class="container">
   <view class='cbgUrlView'>
-    <form bindsubmit='startGujia'>
-      <textarea class="cbgUrl" id="cbgUrl" name="cbgUrl" 
-      placeholder='请输入藏宝阁连接，例如：https://xyq.cbg.163.com/equip?s=841&eid=201810032100113-841-MOP05J3YVZR6&o&equip_refer=1'>
-      </textarea>
-      <button form-type='submit' type='primary'>开始估价</button>
-    </form>
+    <textarea class="cbgUrl" id="cbgUrl" name="cbgUrl"
+     bindblur='changeCbgUrl' bindconfirm='changeCbgUrl' bindinput='changeCbgUrl'
+     placeholder='请输入藏宝阁连接，例如：https://xyq.cbg.163.com/equip?s=841&eid=201810032100113-841-MOP05J3YVZR6&o&equip_refer=1'>
+    </textarea>
+    <button bindtap='startGujia' type='primary'>开始估价</button>
   </view>
 </view>

@@ -1,4 +1,4 @@
-// pages/account_summary/account_summary.js
+// pages/find/find.js
 Page({
 
   /**
@@ -12,24 +12,7 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    this.setData({
-      cbgUrl: options.url
-    })
-    wx.request({
-      url: 'http://localhost:8080/calcAccount?url=' + options.url,
-      success:(res) =>{
-        console.log(res.data);
-        this.setData({
-          accountView: res.data.accountView
-        })
-      },
-      complete(){
-        wx.hideLoading()
-      }
-    })
-    wx.showLoading({
-      title: '获取数据中，请耐心等待',
-    })
+
   },
 
   /**

@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/account_summary/account_summary",
-    "pages/about_us/about_us"
+    "pages/about_us/about_us",
+    "pages/find/find"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -25,8 +26,8 @@
       {
         "selectedIconPath": "images/index_icon.png",
         "iconPath": "images/index_icon.png",
-        "pagePath": "pages/account_summary/account_summary",
-        "text": "详情"
+        "pagePath": "pages/find/find",
+        "text": "找号"
       },
       {
         "selectedIconPath": "images/index_icon.png",
