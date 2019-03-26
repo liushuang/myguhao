@@ -30,13 +30,13 @@
       <text class='flex-column cell'>{{ accountView.chongwuXiulianView.discount }}%</text>
     </view>
     <view class='flex-row'>
-      <text class='flex-column cell'>辅助修炼</text>
+      <text class='flex-column cell'>辅助技能</text>
       <text class='flex-column cell'>{{ accountView.fuzhuJinengView.money }}</text>
-      <text class='flex-column cell'>{{ accountView.fuzhuJinengView.money * accountView.fuzhuJinengView.discount }}</text>
+      <text class='flex-column cell'>{{ accountView.fuzhuJinengView.money * accountView.fuzhuJinengView.discount /100 }}</text>
       <text class='flex-column cell'>{{ accountView.fuzhuJinengView.discount }}%</text>
     </view>
   </view>
   <view>
-    评估总价：
+    评估总价：{{ accountView.totalMoney }}
   </view>
 </view>

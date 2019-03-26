@@ -1,1 +1,27 @@
 /* pages/account_summary/account_summary.wxss */
+.recommend{
+  background-color: #5F0
+}
+
+.flex-parent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.flex-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.flex-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+.cell{
+  width:180rpx;
+  text-align: center;
+}
